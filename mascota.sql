@@ -1,0 +1,45 @@
+CREATE DATABASE encuentra_tu_mascota;
+USE encuentra_tu_mascota;
+
+CREATE TABLE duenio(
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    telefono VARCHAR(10) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    fotografia VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE mascota(
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    raza VARCHAR(100) NOT NULL,
+    rasgos VARCHAR(100) NOT NULL,
+    enfermedades VARCHAR(100) NOT NULL,
+    edad TINYINT UNSIGNED NOT NULL,
+	fotografia VARCHAR(100) NOT NULL,
+    duenioId INT UNSIGNED NOT NULL,
+    FOREIGN KEY (duenioId) REFERENCES duenio(id)
+);
+
+CREATE TABLE publicacion(
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    estado_mascota VARCHAR(100) NOT NULL,
+    comentarios VARCHAR(100) NOT NULL,
+    likes VARCHAR(100) NOT NULL,
+    fotografia VARCHAR(100) NOT NULL,
+    duenioId INT UNSIGNED NOT NULL,
+    mascotaId INT UNSIGNED NOT NULL,
+    FOREIGN KEY (duenioId) REFERENCES duenio(id),
+    FOREIGN KEY (mascotaId) REFERENCES mascota(id)
+);
+
+CREATE TABLE consulta(
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    informe VARCHAR(500) NOT NULL,
+    precio DECIMAL NOT NULL,
+    veterinario VARCHAR(100) NOT NULL,
+    mascotaId INT UNSIGNED NOT NULL,
+    FOREIGN KEY (mascotaId) REFERENCES mascota(id)
+);
